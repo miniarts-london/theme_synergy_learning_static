@@ -1,4 +1,4 @@
-# Task 1: MyLearning static page
+# Task 1: Synergy Learning theme static page
 
 This is a standalone HTML page built from `concept.png` with Bootstrap 5.3 and Open Sans. To view it, open `index.html` in a browser (double-clicking it works), or serve the folder (`npx serve .`). The compiled stylesheet is included, so viewing it needs no build.
 
@@ -56,7 +56,6 @@ task1/
   - **576–1199px:** cards run in two or three columns.
   - **1200px and up:** five columns, as in the concept.
 - **Sass and Grunt.** The styles are split into one partial per component and use the Sass module system (`@use`). Values only needed at compile time (colours, breakpoints) are Sass variables. Anything read at runtime stays a CSS custom property, set from those variables in `_tokens.scss`, so Bootstrap and the components can still use `var()`. The breakpoint mixins use Bootstrap's own breakpoints, so the media queries line up with its grid classes. Grunt lints the Sass with stylelint, then compiles it with Dart Sass. Task 2 uses Sass too, as Moodle's Boost theme does, so the two tasks share one stylesheet language.
-- **Checking the move to Sass.** I compared the compiled CSS with the old hand-written stylesheet, declaration by declaration. The only differences are equivalent rewrites, such as `inset` instead of `top`/`right`/`bottom`/`left`. Full-page screenshots at 375px, 800px and 1440px are pixel-identical.
 - **Focus.** Every interactive element has a clear focus style: a black outline with a yellow halo, which shows up on white, grey, yellow and black backgrounds alike.
 - **Motion.** All motion is turned off under `prefers-reduced-motion`, and `forced-colors` (Windows High Contrast) gets explicit borders.
 
@@ -76,16 +75,10 @@ The page works fully without JavaScript. `main.js` is one plain script, so the p
 |---|---|---|---|
 | 1 | **Text and icons are baked into `intro-banner.jpg`** ("MYLEARNING", the tagline and five icons) | Screen readers can't read it, it can't be translated or edited, it blurs when scaled, and it becomes unreadable on phones | I kept the image, gave it full alt text, and crop it on small screens so the text stays legible. **Suggestion:** supply a clean background and render the title, tagline and icons as live HTML. |
 | 2 | **Banner is 5000 × 2500 and 2.2 MB** | Very slow LCP on mobile connections | Made four responsive WebP/JPEG sizes (about 14–69 KB each). |
-| 3 | **Banner icons are in a different order** from the catalogue (Business Management and CPD are swapped) | Visual inconsistency | Flagged here for design; a live-HTML hero (see #1) would keep the two in sync automatically. |
-| 4 | **Category icons are low-resolution PNGs at mixed sizes** (four at 65px, CPD at 272px, so stroke weights differ) | Blurry on Retina/HiDPI screens; inconsistent line weight | Traced them to SVG. **Suggestion:** request the original vector icon set. |
-| 5 | **The video placeholder has fake player controls baked in** (play button, 01:25, settings and picture-in-picture icons) and black letterboxing | Users will click controls that don't work; there is no real video or captions | Cropped it to a clean poster, built an accessible click-to-load player, and handle the missing file gracefully. **Suggestion:** supply the video file, captions (`.vtt`) and a transcript, as WCAG 1.2 requires. |
-| 6 | **The "Optics and Manufacturing" card is styled differently** (yellow, larger, solid black button) with no explanation | It looks like a hover state captured in the mockup; as a static style it would suggest a selection that doesn't exist | Implemented it as the hover/focus state for every card. |
-| 7 | **"Course Catalogue" is shown as the active nav item** on what is the logged-out front page | Misleading current-page indicator | The underline and `aria-current` now follow the catalogue section as it scrolls into view. |
-| 8 | **Dashboard, My badges and Events are shown to logged-out users** | These pages need a login; in Moodle they would redirect | They take the user to the login form with a contextual message. **Suggestion:** hide them until the user logs in. |
-| 9 | **"Cookies Settings" button is green `#68b631` on `#efefef`, a 2.2:1 contrast ratio** | Fails WCAG 1.4.3 (4.5:1 required) | Kept the concept's green outline style but darkened it to `#3f7020` (5.0:1 on the footer grey; white text on the hover fill is 5.9:1). Relabelled "Cookie settings" (sentence case, singular). |
-| 10 | **Footer copyright text is `#7e7e7e` on `#ececec`, a 3.4:1 contrast ratio** | Fails WCAG AA for small text | Darkened it to `#4d4d52` (7.1:1). |
-| 11 | **"© 2023"** is hard-coded | Already out of date | The year comes from the current date. In Moodle this would come from the theme's copyright setting (Task 2). |
-| 14 | **The footer "Contact us" button has a phone icon, but no number appears anywhere** | The icon promises a phone call, but there is no number to call | Kept the phone icon and made the button a `tel:` link, so it starts a call on phones and opens the calling app on desktops. It uses a **placeholder number** (01632 960000, from Ofcom's range reserved for fiction). **Needs the real phone number.** |
+| 3| **The video placeholder has fake player controls baked in** (play button, 01:25, settings and picture-in-picture icons) and black letterboxing | Users will click controls that don't work; there is no real video or captions | Cropped it to a clean poster, built an accessible click-to-load player, and handle the missing file gracefully. **Suggestion:** supply the video file, captions (`.vtt`) and a transcript, as WCAG 1.2 requires. |
+| 4 | **"Cookies Settings" button is green `#68b631` on `#efefef`, a 2.2:1 contrast ratio** | Fails WCAG 1.4.3 (4.5:1 required) | Kept the concept's green outline style but darkened it to `#3f7020` (5.0:1 on the footer grey; white text on the hover fill is 5.9:1). Relabelled "Cookie settings" (sentence case, singular). |
+| 5 | **Footer copyright text is `#7e7e7e` on `#ececec`, a 3.4:1 contrast ratio** | Fails WCAG AA for small text | Darkened it to `#4d4d52` (7.1:1). |
+| 6 | **"© 2023"** is hard-coded | Already out of date | The year comes from the current date. In Moodle this would come from the theme's copyright setting (Task 2). |
 
 ---
 

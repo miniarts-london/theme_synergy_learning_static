@@ -1,0 +1,100 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.site-header {
+    background: $white;
+    box-shadow: 0 2px 1rem rgba(0, 0, 0, .06);
+    transition: box-shadow var(--ml-duration);
+
+    &.is-scrolled {
+        box-shadow: 0 4px 1.5rem rgba(0, 0, 0, .14);
+    }
+}
+
+.site-header__inner {
+    padding: .75rem 1rem;
+    transition: padding var(--ml-duration) var(--ml-ease);
+
+    .is-scrolled & {
+        padding-block: .4rem;
+    }
+}
+
+.site-logo {
+    padding: 0;
+    margin-right: 2rem;
+
+    img {
+        display: block;
+        width: 3.5rem;
+        height: auto;
+        transition: width var(--ml-duration) var(--ml-ease);
+    }
+
+    .is-scrolled & img {
+        width: 2.75rem;
+    }
+}
+
+.site-nav {
+    .nav-link {
+        position: relative;
+        padding: .5rem 0 !important;
+        margin-inline: 0 1.75rem;
+        font-size: .8125rem;
+        font-weight: 600;
+        letter-spacing: .01em;
+        text-transform: uppercase;
+        color: var(--ml-black);
+
+        // The underline grows on hover and stays on the current section.
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 4px;
+            background: var(--ml-yellow);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--ml-duration) var(--ml-ease);
+        }
+
+        &:hover::after,
+        &[aria-current]::after {
+            transform: scaleX(1);
+        }
+    }
+
+    &:last-child .nav-link {
+        margin-inline: 0;
+    }
+}
+
+.navbar-toggler {
+    border: 2px solid var(--ml-black);
+    border-radius: 0;
+    padding: .4rem .55rem;
+
+    &:focus {
+        box-shadow: 0 0 0 4px var(--ml-yellow);
+    }
+}
+
+@include down(lg) {
+    .site-nav .nav-link {
+        display: inline-block;
+        margin-block: .25rem;
+    }
+
+    .navbar-collapse {
+        padding-block: .5rem 1rem;
+    }
+}
+
+@include up(lg) {
+    .site-header__inner {
+        padding-inline: 1.25rem 1.5rem;
+    }
+}

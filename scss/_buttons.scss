@@ -1,0 +1,29 @@
+@use "variables" as *;
+
+.btn {
+    --bs-btn-border-radius: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+}
+
+.btn-icon {
+    flex: none;
+}
+
+.btn-brand {
+    --bs-btn-bg: var(--ml-yellow);
+    --bs-btn-border-color: var(--ml-yellow);
+    --bs-btn-color: var(--ml-black);
+    --bs-btn-hover-bg: var(--ml-black);
+    --bs-btn-hover-border-color: var(--ml-black);
+    --bs-btn-hover-color: var(--ml-yellow);
+    --bs-btn-active-bg: #222;
+    --bs-btn-active-color: var(--ml-yellow);
+    --bs-btn-active-border-color: #222;
+    --bs-btn-disabled-bg: var(--ml-yellow);
+    --bs-btn-disabled-border-color: var(--ml-yellow);
+    --bs-btn-disabled-color: var(--ml-black);
+    transition: background-color var(--ml-duration), color var(--ml-duration), border-color var(--ml-duration);
+}

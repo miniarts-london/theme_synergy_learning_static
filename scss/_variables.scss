@@ -1,0 +1,33 @@
+// Sass-only values: used at compile time and never output on their own.
+// Colours that also need to change at runtime are passed to CSS custom properties in _tokens.scss.
+
+// Brand colours, sampled from the concept.
+$yellow: #ffde00;
+$yellow-hover: #f2d200;
+$black: #000;
+$white: #fff;
+$ink: #343a40;          // Headings.
+$body: #48484d;         // Body copy.
+$muted: #4d4d52;        // Footer copy, darkened from the concept's #7e7e7e for 4.5:1 contrast.
+$grey-100: #f5f5f5;     // Hero panel.
+$grey-200: #f2f2f2;     // Video band.
+$grey-300: #ececec;     // Footer.
+$error: #b00020;
+
+// Cookie settings keeps the concept's green, darkened from #68b631 (2.1:1, fails WCAG AA)
+// to #3f7020: 5.0:1 on the footer grey, and 5.9:1 for white text on the hover fill.
+$cookie-green: #3f7020;
+
+$font-family: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+// Bootstrap 5.3's breakpoints, so the media queries here line up with its grid classes.
+$breakpoints: (
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px,
+);
+
+// The concept sits on a 1140px grid.
+$container-max: 1140px;

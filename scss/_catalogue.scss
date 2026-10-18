@@ -1,0 +1,159 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.catalogue {
+    padding: 4rem 0 4.5rem;
+    // Lazy rendering: the browser skips layout and paint for this section until it nears the viewport.
+    // contain-intrinsic-size reserves its height (and remembers the real one) so the scrollbar doesn't jump.
+    content-visibility: auto;
+    contain-intrinsic-size: auto 36rem;
+
+    @include up(lg) {
+        padding: 4rem 0 5.5rem;
+    }
+}
+
+.section-title {
+    font-size: clamp(1.625rem, 1.3rem + 1vw, 2rem);
+    padding-bottom: .5rem;
+    border-bottom: 4px solid var(--ml-yellow);
+    margin-bottom: 2.25rem;
+}
+
+.catalogue__grid {
+    margin-bottom: 0;
+}
+
+.course-card {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 1rem 1.5rem;
+    background: $white;
+    box-shadow: var(--ml-shadow-card);
+    text-align: center;
+    transition:
+        background-color var(--ml-duration) var(--ml-ease),
+        transform var(--ml-duration) var(--ml-ease),
+        box-shadow var(--ml-duration) var(--ml-ease);
+
+    @include up(xl) {
+        min-height: 20.5rem;
+    }
+}
+
+.course-card__title {
+    font-size: 1.5rem;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 2.5em; // Keeps the icons aligned across one- and two-line titles.
+    transition: color var(--ml-duration);
+
+    abbr {
+        text-decoration: none;
+        cursor: inherit;
+    }
+}
+
+.course-card__icon {
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-block: auto;
+    transition: transform var(--ml-duration) var(--ml-ease);
+}
+
+.course-card__btn {
+    --bs-btn-padding-y: .55rem;
+    --bs-btn-padding-x: 1.1rem;
+    --bs-btn-font-size: .8125rem;
+    --bs-btn-color: var(--ml-black);
+    --bs-btn-border-color: var(--ml-black);
+    --bs-btn-hover-color: var(--ml-black);
+    --bs-btn-hover-border-color: var(--ml-black);
+    --bs-btn-active-border-color: var(--ml-black);
+    border-width: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: background-color var(--ml-duration), color var(--ml-duration);
+
+    // The stretched link makes the whole card the target, so the focus ring moves to the card.
+    &.stretched-link:focus-visible {
+        outline: none;
+        box-shadow: none;
+    }
+
+    &.stretched-link::after {
+        z-index: 1;
+    }
+}
+
+// The active state: the highlighted "Optics and Manufacturing" card in the concept.
+.course-card:hover,
+.course-card:focus-within {
+    background: var(--ml-yellow);
+    transform: translateY(-.5rem);
+    box-shadow: var(--ml-shadow-card-hover);
+
+    .course-card__icon {
+        transform: scale(1.08);
+    }
+
+    .course-card__btn {
+        background: var(--ml-black);
+        border-color: var(--ml-black);
+        color: $white;
+    }
+}
+
+.course-card:focus-within {
+    outline: 3px solid var(--ml-black);
+    outline-offset: 3px;
+}
+
+.course-card:active {
+    transform: translateY(-.25rem);
+}
+
+// Small screens: compact horizontal cards, so all five categories fit in about 1.5 screens instead of 5.
+@include down(sm) {
+    .catalogue__grid {
+        --bs-gutter-y: .75rem;
+    }
+
+    .course-card {
+        display: grid;
+        grid-template-columns: 3.25rem 1fr;
+        grid-template-areas: "icon title" "icon btn";
+        place-items: center start;
+        gap: .5rem 1.25rem;
+        padding: 1rem 1.25rem;
+        text-align: left;
+    }
+
+    .course-card__icon {
+        grid-area: icon;
+        width: 3.25rem;
+        height: 3.25rem;
+        margin: 0;
+    }
+
+    .course-card__title {
+        grid-area: title;
+        font-size: 1.25rem;
+        min-height: 0;
+    }
+
+    .course-card__btn {
+        grid-area: btn;
+        --bs-btn-padding-y: .4rem;
+        --bs-btn-padding-x: .8rem;
+    }
+
+    .course-card:hover,
+    .course-card:focus-within {
+        transform: none;
+    }
+}

@@ -1,0 +1,75 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.site-footer {
+    background: var(--ml-grey-300);
+    color: var(--ml-muted);
+    padding: 3.5rem 0 4rem;
+    font-size: .8125rem;
+}
+
+.site-footer__copyright {
+    margin-bottom: 1rem;
+}
+
+.btn-contact {
+    --bs-btn-padding-y: .55rem;
+    --bs-btn-padding-x: 1.1rem;
+    --bs-btn-font-size: 1rem;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.site-footer__address {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--ml-black);
+    line-height: 1.55;
+    margin-bottom: 2.5rem;
+}
+
+.site-footer__links {
+    margin-bottom: 2rem;
+
+    a {
+        color: var(--ml-black);
+        display: inline-block;
+        padding-block: .2rem;
+    }
+}
+
+.btn-cookie {
+    --bs-btn-padding-y: .35rem;
+    --bs-btn-padding-x: .9rem;
+    --bs-btn-font-size: .8125rem;
+    @include button-outline($cookie-green);
+}
+
+// The cookie settings modal and the toast.
+.modal-content {
+    border: 0;
+    border-top: 6px solid var(--ml-yellow);
+    border-radius: 0;
+}
+
+.form-switch .form-check-input:checked {
+    background-color: var(--ml-black);
+    border-color: var(--ml-black);
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 4px var(--ml-yellow);
+    border-color: var(--ml-black);
+}
+
+.site-toast {
+    border: 0;
+    border-left: 6px solid var(--ml-yellow);
+    border-radius: 0;
+    background: var(--ml-black);
+    color: $white;
+
+    .btn-close {
+        filter: invert(1) grayscale(1) brightness(2);
+    }
+}

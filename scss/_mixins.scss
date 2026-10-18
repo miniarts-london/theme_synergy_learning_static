@@ -1,0 +1,29 @@
+@use "sass:map";
+@use "variables" as *;
+
+// Mobile-first: styles from this breakpoint up.
+@mixin up($name) {
+    @media (min-width: map.get($breakpoints, $name)) {
+        @content;
+    }
+}
+
+// Styles below this breakpoint. The .02px avoids overlapping with up() at the exact width,
+// as Bootstrap does.
+@mixin down($name) {
+    @media (max-width: map.get($breakpoints, $name) - .02px) {
+        @content;
+    }
+}
+
+// A Bootstrap button skin set through its own CSS variables.
+@mixin button-outline($colour, $hover-text: $white) {
+    --bs-btn-color: #{$colour};
+    --bs-btn-border-color: #{$colour};
+    --bs-btn-hover-bg: #{$colour};
+    --bs-btn-hover-color: #{$hover-text};
+    --bs-btn-hover-border-color: #{$colour};
+    --bs-btn-active-bg: #{$colour};
+    --bs-btn-active-color: #{$hover-text};
+    --bs-btn-active-border-color: #{$colour};
+}

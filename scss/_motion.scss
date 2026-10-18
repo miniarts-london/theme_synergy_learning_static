@@ -1,0 +1,46 @@
+@use "variables" as *;
+
+// Content is only hidden once the script has set up the observer that shows it again (.reveal-ready).
+@media (prefers-reduced-motion: no-preference) {
+    .reveal-ready [data-reveal] {
+        opacity: 0;
+        translate: 0 1.5rem;
+        transition: opacity .6s var(--ml-ease), translate .6s var(--ml-ease);
+        transition-delay: calc(var(--reveal-index, 0) * 80ms);
+
+        &.is-revealed {
+            opacity: 1;
+            translate: 0 0;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+    .course-card:hover,
+    .course-card:focus-within {
+        transform: none;
+    }
+}
+
+// Windows High Contrast and other forced-colour modes.
+@media (forced-colors: active) {
+    .course-card {
+        border: 1px solid CanvasText;
+    }
+
+    .section-title {
+        border-bottom-color: CanvasText;
+    }
+
+    .video::before {
+        forced-color-adjust: none;
+    }
+}

@@ -1,0 +1,68 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+html {
+    scroll-padding-top: calc(var(--ml-header-h) + 1rem);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+body {
+    font-family: var(--ml-font);
+    -webkit-font-smoothing: antialiased;
+}
+
+// Keep the concept's 1140px measure on very wide screens.
+@include up(xxl) {
+    .container {
+        max-width: $container-max;
+    }
+}
+
+h1,
+h2,
+h3 {
+    color: var(--ml-ink);
+    font-weight: 300;
+}
+
+a {
+    text-underline-offset: .2em;
+}
+
+// One consistent, high-contrast focus indicator: black and a yellow halo work on every surface.
+:focus-visible {
+    outline: 3px solid var(--ml-black);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 6px var(--ml-yellow);
+}
+
+.btn:focus-visible,
+.form-control:focus-visible {
+    box-shadow: 0 0 0 6px var(--ml-yellow);
+}
+
+#main:focus {
+    outline: none;
+}
+
+.skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 1100;
+    padding: .75rem 1rem;
+    background: var(--ml-yellow);
+    color: var(--ml-black);
+    font-weight: 600;
+    text-decoration: none;
+    transition: top .15s;
+
+    &:focus {
+        top: 1rem;
+    }
+}

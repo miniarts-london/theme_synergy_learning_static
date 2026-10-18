@@ -1,0 +1,38 @@
+@use "sass:meta";
+@use "variables" as *;
+
+// CSS custom properties: the runtime layer, which the components read with var().
+:root {
+    // Brand.
+    --ml-yellow: #{$yellow};
+    --ml-yellow-hover: #{$yellow-hover};
+    --ml-black: #{$black};
+    --ml-ink: #{$ink};
+    --ml-body: #{$body};
+    --ml-muted: #{$muted};
+    --ml-grey-100: #{$grey-100};
+    --ml-grey-200: #{$grey-200};
+    --ml-grey-300: #{$grey-300};
+    --ml-line: #{$black};
+
+    // Type.
+    --ml-font: #{meta.inspect($font-family)}; // inspect() keeps the quotes around "Open Sans".
+
+    // Elevation and motion.
+    --ml-shadow-card: 0 0 1.25rem rgba(0, 0, 0, .06);
+    --ml-shadow-card-hover: 0 1rem 2rem rgba(0, 0, 0, .12);
+    --ml-ease: cubic-bezier(.2, .7, .2, 1);
+    --ml-duration: 250ms;
+
+    // Layout.
+    --ml-header-h: 6rem;
+
+    // Bootstrap hooks.
+    --bs-body-font-family: var(--ml-font);
+    --bs-body-color: var(--ml-body);
+    --bs-body-font-weight: 400;
+    --bs-link-color-rgb: 0, 0, 0;
+    --bs-link-hover-color-rgb: 0, 0, 0;
+    --bs-focus-ring-color: rgba(0, 0, 0, .6);
+    --bs-border-radius: 0;
+}

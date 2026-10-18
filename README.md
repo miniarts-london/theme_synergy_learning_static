@@ -75,10 +75,19 @@ The page works fully without JavaScript. `main.js` is one plain script, so the p
 |---|---|---|---|
 | 1 | **Text and icons are baked into `intro-banner.jpg`** ("MYLEARNING", the tagline and five icons) | Screen readers can't read it, it can't be translated or edited, it blurs when scaled, and it becomes unreadable on phones | I kept the image, gave it full alt text, and crop it on small screens so the text stays legible. **Suggestion:** supply a clean background and render the title, tagline and icons as live HTML. |
 | 2 | **Banner is 5000 × 2500 and 2.2 MB** | Very slow LCP on mobile connections | Made four responsive WebP/JPEG sizes (about 14–69 KB each). |
-| 3| **The video placeholder has fake player controls baked in** (play button, 01:25, settings and picture-in-picture icons) and black letterboxing | Users will click controls that don't work; there is no real video or captions | Cropped it to a clean poster, built an accessible click-to-load player, and handle the missing file gracefully. **Suggestion:** supply the video file, captions (`.vtt`) and a transcript, as WCAG 1.2 requires. |
-| 4 | **"Cookies Settings" button is green `#68b631` on `#efefef`, a 2.2:1 contrast ratio** | Fails WCAG 1.4.3 (4.5:1 required) | Kept the concept's green outline style but darkened it to `#3f7020` (5.0:1 on the footer grey; white text on the hover fill is 5.9:1). Relabelled "Cookie settings" (sentence case, singular). |
-| 5 | **Footer copyright text is `#7e7e7e` on `#ececec`, a 3.4:1 contrast ratio** | Fails WCAG AA for small text | Darkened it to `#4d4d52` (7.1:1). |
-| 6 | **"© 2023"** is hard-coded | Already out of date | The year comes from the current date. In Moodle this would come from the theme's copyright setting (Task 2). |
+| 3 | **Banner icons are in a different order** from the catalogue (Business Management and CPD are swapped) | Visual inconsistency | Flagged here for design; a live-HTML hero (see #1) would keep the two in sync automatically. |
+| 4 | **Category icons are low-resolution PNGs at mixed sizes** (four at 65px, CPD at 272px, so stroke weights differ) | Blurry on Retina/HiDPI screens; inconsistent line weight | Traced them to SVG. **Suggestion:** request the original vector icon set. |
+| 5 | **The video placeholder has fake player controls baked in** (play button, 01:25, settings and picture-in-picture icons) and black letterboxing | Users will click controls that don't work; there is no real video or captions | Cropped it to a clean poster, built an accessible click-to-load player, and handle the missing file gracefully. **Suggestion:** supply the video file, captions (`.vtt`) and a transcript, as WCAG 1.2 requires. |
+| 6 | **"Cookies Settings" button is green `#68b631` on `#efefef`, a 2.2:1 contrast ratio** | Fails WCAG 1.4.3 (4.5:1 required) | Kept the concept's green outline style but darkened it to `#3f7020` (5.0:1 on the footer grey; white text on the hover fill is 5.9:1). Relabelled "Cookie settings" (sentence case, singular). |
+| 7 | **Footer copyright text is `#7e7e7e` on `#ececec`, a 3.4:1 contrast ratio** | Fails WCAG AA for small text | Darkened it to `#4d4d52` (7.1:1). |
+| 8 | **"© 2023"** is hard-coded | Already out of date | The year comes from the current date. In Moodle this would come from the theme's copyright setting (Task 2). |
+| 9 | **"Nikon Optical Ltd, All rights reserved."** is a comma splice | Copy error | Changed to "Nikon Optical Ltd. All rights reserved." |
+| 10 | **"United-Kingdom"** has a stray hyphen | Copy error | Changed to "United Kingdom". |
 
 ---
 
+## Notes and assumptions
+- Links point to Moodle-style URLs (`/my/`, `/course/index.php?categoryid=…`) so the markup can move straight into a Moodle theme for the optional combined task.
+- The video is expected at `assets/video/about-nikon-lenswear-uk.mp4`. Add the file and it will play with no code changes.
+- The contact phone number (01632 960000) is a placeholder from Ofcom's fictional range.
+- Bootstrap and Open Sans load from CDNs with Subresource Integrity on the Bootstrap files. Open Sans is loaded as a variable font covering weights 300–700.

@@ -1,17 +1,17 @@
 # Task 1: Synergy Learning theme static page
 
-This is a standalone HTML page built from `concept.png` with Bootstrap 5.3 and Open Sans. To view it, open `index.html` in a browser (double-clicking it works), or serve the folder (`npx serve .`). The compiled stylesheet is included, so viewing it needs no build.
+This is a standalone HTML page built from `concept.png` with Bootstrap 5.3 and Open Sans. To view it, open `index.html` in a browser (double-clicking it works), or serve the folder (`npx serve .`). The compiled stylesheet and script are included, so viewing it needs no build.
 
-The styles are written in Sass and compiled with Grunt. To change them:
+The styles are written in Sass and the script in modern JavaScript, and Gulp builds both. To change them:
 
 ```bash
 npm install        # once
-npm run watch      # while editing: recompiles css/styles.css on every save, with a source map
-npm run build      # before handing in: lints the Sass, then compiles without a source map
-npm run lint       # lint only
+npm run watch      # while editing: rebuilds the CSS and the JavaScript on every save, with source maps
+npm run build      # before handing in: lints the Sass, then builds both
+npm run lint       # lint the Sass only
 ```
 
-Edit the partials in `scss/`, never `css/styles.css`, which is overwritten on every build.
+Edit `scss/` and `js/src/`, never `css/styles.css` or `js/build/`, which are overwritten on every build.
 
 ```
 task1/
@@ -24,10 +24,12 @@ task1/
 │   ├── _base.scss            Page, headings, focus style, skip link
 │   └── _buttons · _header · _hero · _login · _catalogue · _video · _footer · _motion
 ├── css/styles.css        Compiled output of scss/ (kept in the repo so the page opens without a build)
-├── Gruntfile.js          Tasks: stylelint, sass (dist and dev), watch
-├── package.json          npm scripts: build, watch, lint
+├── js/
+│   ├── src/main.js           Source: one script with the same parts and functions as the Moodle theme's AMD modules
+│   └── build/main.min.js     Compiled and minified by Gulp, plus a source map (loaded by index.html)
+├── gulpfile.js           Tasks: lint, styles, scripts, build, watch
+├── package.json          npm scripts: build, watch, lint; "browserslist" sets the browsers Babel compiles for
 ├── .stylelintrc.json     stylelint-config-standard-scss, with the BEM class names allowed
-├── js/main.js            One script with the same parts and functions as the Moodle theme's AMD modules
 └── assets/
     ├── img/              Responsive banner (WebP + JPEG, 640–2400w), logo @1x/2x/3x, clean video poster
     └── icons/            Category icons re-traced from the PNGs to SVG
@@ -55,12 +57,14 @@ task1/
     - The category cards switch to a compact horizontal layout, so all five fit in about one and a half screens instead of five.
   - **576–1199px:** cards run in two or three columns.
   - **1200px and up:** five columns, as in the concept.
-- **Sass and Grunt.** The styles are split into one partial per component and use the Sass module system (`@use`). Values only needed at compile time (colours, breakpoints) are Sass variables. Anything read at runtime stays a CSS custom property, set from those variables in `_tokens.scss`, so Bootstrap and the components can still use `var()`. The breakpoint mixins use Bootstrap's own breakpoints, so the media queries line up with its grid classes. Grunt lints the Sass with stylelint, then compiles it with Dart Sass. Task 2 uses Sass too, as Moodle's Boost theme does, so the two tasks share one stylesheet language.
+- **Sass and Gulp.** The styles are split into one partial per component and use the Sass module system (`@use`). Values only needed at compile time (colours, breakpoints) are Sass variables. Anything read at runtime stays a CSS custom property, set from those variables in `_tokens.scss`, so Bootstrap and the components can still use `var()`. The breakpoint mixins use Bootstrap's own breakpoints, so the media queries line up with its grid classes. Gulp lints the Sass with stylelint, then compiles it with Dart Sass. Task 2 uses Sass too, as Moodle's Boost theme does, so the two tasks share one stylesheet language.
 - **Focus.** Every interactive element has a clear focus style: a black outline with a yellow halo, which shows up on white, grey, yellow and black backgrounds alike.
 - **Motion.** All motion is turned off under `prefers-reduced-motion`, and `forced-colors` (Windows High Contrast) gets explicit borders.
 
-## JavaScript enhancements (`js/main.js`)
+## JavaScript enhancements (`js/src/main.js`)
 The page works fully without JavaScript. `main.js` is one plain script, so the page also works when `index.html` is opened straight from the folder (ES modules would need a web server). Inside, it has the same three parts as the Moodle theme's AMD modules (`navbar`, `frontpage`, `footer`), with the same function names and logic, so the two tasks read as one codebase; the few parts that only make sense on a static page (the fake log in, links to pages that don't exist here) are marked as such. Content is only hidden for the reveal animation once the script has set up the observer that shows it again (`.reveal-ready`), so a script error never leaves the catalogue invisible.
+
+The page loads a compiled copy, `js/build/main.min.js`. Gulp runs the source through Babel, which compiles it for the browsers listed in `package.json`'s `browserslist`, then minifies it with Terser (about 13 KB down to 6 KB). This is the same build step the Moodle theme uses for its AMD modules (`amd/src` to `amd/build`). A source map is written next to it, so the browser's dev tools show and debug `js/src/main.js`, not the minified file.
 
 ## Testing
 - **Visual comparison.** I compared the page side by side with the concept at its native 1527px width, then checked it at 390px (phone) and 820px (tablet).

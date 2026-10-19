@@ -2,19 +2,28 @@
   "name": "mylearning-static",
   "version": "1.0.0",
   "private": true,
-  "description": "Task 1: the MyLearning static page. Sass compiled with Grunt.",
+  "description": "Task 1: the MyLearning static page. Sass and JavaScript built with Gulp.",
   "scripts": {
-    "build": "grunt",
-    "watch": "grunt dev watch",
-    "lint": "grunt stylelint"
+    "build": "gulp build",
+    "watch": "gulp watch",
+    "lint": "gulp lint"
   },
   "devDependencies": {
-    "grunt": "^1.6.1",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-sass": "^4.0.1",
-    "grunt-stylelint": "^0.20.1",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "gulp": "^5.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^6.0.0",
+    "gulp-terser": "^2.1.0",
     "sass": "^1.80.0",
     "stylelint": "^16.10.0",
     "stylelint-config-standard-scss": "^13.1.0"
-  }
+  },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "type": "module"
 }
